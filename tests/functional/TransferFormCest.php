@@ -5,24 +5,14 @@ class TransferFormCest
     public function _before(\FunctionalTester $I)
     {
         $I->amOnPage(['site/login']);
-    }
-
-    public function openLoginPage(\FunctionalTester $I)
-    {
         $I->see('Login', 'h1');
-    }
-
-    public function loginSuccessfully(\FunctionalTester $I)
-    {
         $I->submitForm('#login-form', [
             'LoginForm[username]' => 'user1',
         ]);
         $I->see('Logout (user1)');
         $I->dontSeeElement('form#login-form');
-    }
-
-    public function openTransactionPage(\FunctionalTester $I)
-    {
+        $I->seeLink('Transaction');
+        $I->click('Transaction');
         $I->see('Transaction', 'h1');
     }
 
