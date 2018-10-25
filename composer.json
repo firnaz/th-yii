@@ -24,12 +24,12 @@
         "yiisoft/yii2-gii": "~2.0.0",
         "yiisoft/yii2-faker": "~2.0.0",
 
-        "codeception/codeception": "~2.4.0",
+        "codeception/codeception": "2.4.0",
         "codeception/verify": "~0.3.1",
         "codeception/specify": "~0.4.3"
     },
     "config": {
-        "process-timeout": 1800,
+        "process-timeout": 30,
         "fxp-asset": {
             "enabled": false
         }
