@@ -24,14 +24,16 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-lg-5">
 
-                <?php $form = ActiveForm::begin(['id' => 'transaction-form']); ?>
+                <?php $form = ActiveForm::begin(['id' => 'transaction-form', 'layout' => 'horizontal']); ?>
 
                     <?= $form->field($model, 'username') ?>
 
                     <?= $form->field($model, 'amount') ?>
 
                     <div class="form-group">
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'transaction-button']) ?>
+                        <div class="col-lg-offset-1 col-lg-11">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'transaction-button']) ?>
+                        </div>
                     </div>
 
                 <?php ActiveForm::end(); ?>

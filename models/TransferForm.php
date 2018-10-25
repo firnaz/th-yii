@@ -31,22 +31,24 @@ class TransferForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Username',
-            'amount' => 'Transfer Amount',
+            'username' => 'Receipt',
+            'amount' => 'Amount',
         ];
     }
 
     public function validateUsername($attribute, $params)
     {
         if (!$this->hasErrors()) {
+            // check the receipt is one of existing user
             $user = User::find()->where(["username"=>$this->username])->one();
-
             if (!$user) {
-                $this->addError($attribute, 'Incorrect username.');
-            }
-            $currentUser = \Yii::$app->user->getIdentity();
-            if ($user->username == $currentUser->username) {
-                $this->addError($attribute, 'You cannot transfer to yourself.');
+                $this->addError($attribute, 'Receipt\'s username doesn\'t exist.');
+            } else {
+                // The receipt cannot same as the current logged in user
+                $currentUser = \Yii::$app->user->getIdentity();
+                if ($user->username == $currentUser->username) {
+                    $this->addError($attribute, 'You cannot transfer to yourself.');
+                }
             }
         }
     }
@@ -54,19 +56,16 @@ class TransferForm extends Model
     public function validateAmount($attribute, $params)
     {
         if (!$this->hasErrors()) {
+            // check amount must be greater than 0
             if ($this->amount <= 0) {
-                $this->addError($attribute, 'Transfer amount must be > 0.');
-                return false;
-            }
-
-            $currentUser = \Yii::$app->user->getIdentity();
-            if ($currentUser) {
+                $this->addError($attribute, 'Transfer amount must be greater than 0.');
+            } else {
+                $currentUser = \Yii::$app->user->getIdentity();
+                // check current user balance after transfer, the balance must not be lower than -1000
                 $minBalance = $currentUser->balance - $this->amount;
                 if ($minBalance < -1000) {
                     $this->addError($attribute, 'You cannot transfer that amount, this will exceed the minimum balance limit in your account.');
                 }
-            } else {
-                $this->addError($attribute, 'You need to login to transfer balance.');
             }
         }
     }

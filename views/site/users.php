@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-users">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered">
       <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
