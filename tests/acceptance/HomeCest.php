@@ -6,13 +6,14 @@ class HomeCest
 {
     public function ensureThatHomePageWorks(AcceptanceTester $I)
     {
-        $I->amOnPage(Url::toRoute('/site/index'));        
-        $I->see('My Company');
+        $I->amOnPage(Url::toRoute('/site/index'));
+        $I->see('Example App');
         
-        $I->seeLink('About');
-        $I->click('About');
-        $I->wait(2); // wait for page to be opened
+        $I->seeLink('Users');
+        $I->click('Users');
+        $I->wait(2);
         
-        $I->see('This is the About page.');
+        $I->see('Username');
+        $I->see('Balance');
     }
 }

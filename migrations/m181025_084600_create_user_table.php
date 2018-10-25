@@ -19,6 +19,9 @@ class m181025_084600_create_user_table extends Migration
             'created_at' => $this->integer(),
             'updated_at' => $this->integer()
         ]);
+
+        $this->insert("user", ["username"=>"user1", "created_at" => time(), "updated_at" => time()]);
+        $this->insert("user", ["username"=>"user2", "created_at" => time(), "updated_at" => time()]);
     }
 
     /**
