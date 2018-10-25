@@ -20,11 +20,11 @@ $this->title = 'My Yii Application';
                     if (!Yii::$app->user->isGuest) {
                         $user = Yii::$app->user->getIdentity(); ?>
                     <h2>Hi <?=$user->username?></h2>
-                    <p>Your current balance is <strong>USD <?=$user->balance?></strong>. </p>
+                    <p>Your balance is <strong>USD <?=$user->balance?></strong>. </p>
                 <?php
                     } else {
                         ?>
-                   <p> Please login to check your current balance. </p>
+                   <p> Please login to see your balance. </p>
                <?php
                     } ?>
             </div>

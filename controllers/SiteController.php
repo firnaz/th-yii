@@ -9,7 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
 use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\TransferForm;
 
 class SiteController extends Controller
 {
@@ -81,7 +81,6 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
-        $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -100,19 +99,20 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
+     * Displays transaction page.
      *
      * @return Response|string
      */
-    public function actionContact()
+    public function actionTransaction()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
+        $model = new TransferForm();
+        if ($model->load(Yii::$app->request->post()) && $model->doTransfer()) {
+            Yii::$app->session->setFlash('transferSuccess');
+            Yii::$app->session->setFlash('username', $model->username);
+            Yii::$app->session->setFlash('amount', number_format($model->amount, 2));
             return $this->refresh();
         }
-        return $this->render('contact', [
+        return $this->render('transaction', [
             'model' => $model,
         ]);
     }
