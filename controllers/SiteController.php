@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
@@ -117,12 +118,26 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays about page.
+     * Displays Users page.
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionUsers()
     {
-        return $this->render('about');
+        // get page request;
+        $page = Yii::$app->request->get("page")>0?Yii::$app->request->get("page"):1;
+
+        // get the total number of users
+        $countUser = \app\models\User::find()->count();
+
+        // create a pagination object with the total count
+        $pagination = new Pagination(['totalCount' => $countUser, 'page'=>($page-1)]);
+
+        $users = \app\models\User::find()
+            ->orderBy("username ASC")
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        return $this->render('users', ["users" => $users, "pagination"=>$pagination]);
     }
 }
