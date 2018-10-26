@@ -29,7 +29,7 @@
         "codeception/specify": "~0.4.3"
     },
     "config": {
-        "process-timeout": 30,
+        "process-timeout": 60,
         "fxp-asset": {
             "enabled": false
         }
