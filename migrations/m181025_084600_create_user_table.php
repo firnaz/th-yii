@@ -15,7 +15,7 @@ class m181025_084600_create_user_table extends Migration
         $this->createTable('user', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
-            'balance' => $this->decimal(6, 2)->notNUll()->defaultValue(0),
+            'balance' => $this->decimal(32, 2)->notNUll()->defaultValue(0),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer()
         ]);
